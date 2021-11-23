@@ -29,11 +29,11 @@ function Navbar(props){
             <label className="bi-list navbar-icon " data-toggle="dropdown"  onClick={onHangdlechange}>
                 {!isMobile && <label className="padding-10">Dịch phương ngữ Huế sang tiếng Việt phổ thông</label>} 
             </label>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="#">Action</a>
-                    <a class="dropdown-item" href="#">Another action</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Something else here</a>
+                <div className="dropdown-menu" aria-labelledby="navbarDropdown">
+                    {/* <a className="dropdown-item" >Action</a>
+                    <a className="dropdown-item">Another action</a>
+                    <div className="dropdown-divider"></div>
+                    <a className="dropdown-item">Something else here</a> */}
                 </div>
         </div>
         

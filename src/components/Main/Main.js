@@ -1,8 +1,6 @@
 import React from "react";
 import './Main.css';
 import { useState } from "react";
-import { Fragment } from "react";
-import { useEffect } from "react";
 import axios from 'axios';
 function Main(props){
     const [textHue,updateTextHue]=useState('');
@@ -11,10 +9,20 @@ function Main(props){
         const value=e.target.value;
         updateTextHue(value);
     }
+    const configData=(response)=>{
+        let data=response;
+        data=data.replace(/_/g,' ');
+        data=data.replace(/ \?/g,'?');
+        data=data.replace(/ \./g,'.');
+        data=data.replace(/ !/g,'!');
+        data=data.replace(/ ,/g,',');
+        return data
+    }
     const onHangdleSubmit=(e)=>{
         e.preventDefault();
         axios.post(`http://localhost:8000/translate`,{ TranslateSentence:textHue }).then(response => {
-          updateTextTiengViet(response.data.TranslateSentence)
+          let data=configData(response.data.TranslateSentence);
+          updateTextTiengViet(data);
           console.log(response)
         }).catch(error => {
             console.log(error)
@@ -33,10 +41,10 @@ function Main(props){
                             <textarea className="form-control border-none"  placeholder="Nhập câu cần dịch" onChange={onHangdlechange}></textarea>
                         </div> 
                         <div >
-                            <i class="bi bi-mic"></i>
+                            <i className="bi bi-mic"></i>
                             <i className='margin-right'>
                                 <i>{textHue.length}/5000</i>
-                                <i class="bi bi-pencil-square"></i>
+                                <i className="bi bi-pencil-square"></i>
                             </i>
                         </div>
                         <button className='form-control' onClick={onHangdleSubmit}>Dịch</button>
@@ -48,7 +56,7 @@ function Main(props){
                     <form>
                         <div className="form-group">
                             
-                            <textarea className="form-control" id="exampleInputEmail1" value={textTiengViet} />
+                            <textarea className="background-white form-control " id="exampleInputEmail1" value={textTiengViet} readOnly="readonly"/>
                            
                         </div>
                        

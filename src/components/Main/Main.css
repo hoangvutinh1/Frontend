@@ -21,3 +21,6 @@ i{
     position:absolute;
     right: 10px;
 }
+.background-white{
+    background-color: white !important;
+}
