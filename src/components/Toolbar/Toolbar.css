@@ -1,0 +1,15 @@
+.toolbar{
+   
+    padding:30px;
+    text-align: center;
+}
+.icon{
+  
+    padding:1rem;
+   
+   
+    font-size: 4rem;
+    color: cornflowerblue;
+    
+    cursor:pointer;
+}

@@ -1,0 +1,21 @@
+.navbar{
+    
+    padding:10px;
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+}
+.navbar-icon{
+    /* border:1px solid black */
+    cursor:pointer;
+}
+label{
+    padding-left:10px;
+    padding-top:0px;
+    padding-bottom:0px;
+    margin:0px;
+    font-size: 20px;
+}
+padding-10{
+    padding-left:10px;
+    padding-top:0px;
+    padding-bottom:0px;
+}
