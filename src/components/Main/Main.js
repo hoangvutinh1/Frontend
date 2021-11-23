@@ -41,8 +41,8 @@ function Main(props){
                             <textarea className="form-control border-none"  placeholder="Nhập câu cần dịch" onChange={onHangdlechange}></textarea>
                         </div> 
                         <div >
-                            <i className="bi bi-mic"></i>
-                            <i className='margin-right'>
+                            <i className="bi bi-mic size-20px"></i>
+                            <i className='margin-right size-20px'>
                                 <i>{textHue.length}/5000</i>
                                 <i className="bi bi-pencil-square"></i>
                             </i>

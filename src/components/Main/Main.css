@@ -5,11 +5,11 @@
 }
 textarea {
     resize: none;
-   
     max-width:100%;min-height:150px;
 }
 label{
     padding:5px;
+    font-size: 30px;
 }
 /* .border-none{
     border: none;
@@ -23,4 +23,8 @@ i{
 }
 .background-white{
     background-color: white !important;
+}
+
+.size-20px{
+    font-size: 20px;
 }
