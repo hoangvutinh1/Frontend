@@ -5,12 +5,14 @@ import axios from 'axios';
 function Main(props){
     const [textHue,updateTextHue]=useState('');
     const [textTiengViet,updateTextTiengViet]=useState('');
-    const onHangdlechange=(e)=>{
+    //const [listData,updateListData]=useState('');
+    const onHandleChange=(e)=>{
         const value=e.target.value;
         updateTextHue(value);
     }
     const configData=(response)=>{
         let data=response;
+        
         data=data.replace(/_/g,' ');
         data=data.replace(/ \?/g,'?');
         data=data.replace(/ \./g,'.');
@@ -18,15 +20,28 @@ function Main(props){
         data=data.replace(/ ,/g,',');
         return data
     }
-    const onHangdleSubmit=(e)=>{
+    //const [listData,updateListData]=useState([]);
+    async function FetchOneSentence(sentence){
+        const response=await axios.post(`http://localhost:8000/translate`,{ TranslateSentence:sentence })
+       
+        return response.data
+    }
+    async function FetchData(textHueArray){
+        let data=''
+        for (let i = 0; i < textHueArray.length; i++){
+            let sentence_i=(await FetchOneSentence(textHueArray[i]));
+
+            data=data + configData(sentence_i) +'\n';
+        }
+        updateTextTiengViet(data)
+      
+        
+    }
+    const onHandleSubmit=(e)=>{
         e.preventDefault();
-        axios.post(`http://localhost:8000/translate`,{ TranslateSentence:textHue }).then(response => {
-          let data=configData(response.data.TranslateSentence);
-          updateTextTiengViet(data);
-          console.log(response)
-        }).catch(error => {
-            console.log(error)
-        });
+        let textHueArray=[...textHue.split('\n')];
+        FetchData(textHueArray);
+        
     }
     return (
         <div className='main'>
@@ -38,7 +53,7 @@ function Main(props){
                     <form>
                         <div className="form-group">
                         
-                            <textarea className="form-control border-none"  placeholder="Nhập câu cần dịch" onChange={onHangdlechange}></textarea>
+                            <textarea className="form-control border-none"  placeholder="Nhập câu cần dịch" onChange={onHandleChange}></textarea>
                         </div> 
                         <div >
                             <i className="bi bi-mic size-20px"></i>
@@ -47,7 +62,7 @@ function Main(props){
                                 <i className="bi bi-pencil-square"></i>
                             </i>
                         </div>
-                        <button className='form-control' onClick={onHangdleSubmit}>Dịch</button>
+                        <button className='form-control' onClick={onHandleSubmit}>Dịch</button>
                     </form>
                     
                 </div>
