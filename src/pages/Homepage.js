@@ -1,12 +1,10 @@
 import React, { Fragment } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import './Homepage.css';
+import "./Homepage.css";
 import Navbar from "../components/Navbar/Navbar";
 import Main from "../components/Main/Main";
 import Toolbar from "../components/Toolbar/Toolbar";
-function Homepage(props){
-    const dispatch=useDispatch()
-   /*  const hobbyList=useSelector(state => state.hobby.list)
+function Homepage() {
+  /*  const hobbyList=useSelector(state => state.hobby.list)
     const activeId=useSelector(state => state.hobby.activeId)
     const handleAddHobbyClick=()=>{
         //Random a hobby object:id +title
@@ -25,16 +23,16 @@ function Homepage(props){
         const action=setActiveHobby(hobby)
         dispatch(action)
     } */
-   
-    return (
-        <Fragment>
-            <Navbar></Navbar>
-            <div className='container-fluid '>
-                <Main></Main>
-                <Toolbar></Toolbar>
-            </div>
-        </Fragment>
-    )
+
+  return (
+    <Fragment>
+      <Navbar></Navbar>
+      <div className="container-fluid ">
+        <Main></Main>
+        <Toolbar></Toolbar>
+      </div>
+    </Fragment>
+  );
 }
 
 export default Homepage;
