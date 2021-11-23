@@ -5,7 +5,7 @@
 }
 textarea {
     resize: none;
-    max-width:100%;min-height:150px;
+    max-width:100%;min-height:190px;
 }
 label{
     padding:5px;
@@ -27,4 +27,7 @@ i{
 
 .size-20px{
     font-size: 20px;
+}
+.size-24px{
+    font-size:24px;
 }

@@ -1,15 +1,12 @@
 .toolbar{
-   
-    padding:30px;
+    margin-top:0.5rem;
+    padding:1rem;
     text-align: center;
 }
 .icon{
-  
-    padding:1rem;
-   
-   
-    font-size: 4rem;
-    color: cornflowerblue;
     
+    padding:1rem;
+    font-size: 3rem;
+    color: cornflowerblue;
     cursor:pointer;
 }
