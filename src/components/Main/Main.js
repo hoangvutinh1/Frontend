@@ -100,7 +100,7 @@ function Main(props){
                     <form>
                         <div className="form-group">
                         
-                            <textarea className="form-control"  placeholder="Nhập câu cần dịch" onChange={onHandleChange}></textarea>
+                            <textarea className="form-control size-24px"  placeholder="Nhập câu cần dịch" onChange={onHandleChange}></textarea>
                         </div> 
                         <div >
                             <i className="bi bi-mic size-20px"></i>
