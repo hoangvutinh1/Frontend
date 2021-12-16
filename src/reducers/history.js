@@ -17,7 +17,6 @@ const historyReducer = (state = initialState, action) => {
             const payload=action.payload.split('\n'); 
             newList.push(action.payload);
            
-
             return {
                 ...state,
                 textViet:newList
