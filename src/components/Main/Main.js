@@ -3,18 +3,24 @@ import './Main.css';
 import { useState } from "react";
 import axios from 'axios';
 import { useEffect } from "react";
+import { loadHistory } from "../../actions/history";
+import { useDispatch } from "react-redux";
+import { addVietHistory,addHueHistory } from "../../actions/history";
+import { useSelector } from "react-redux";
 function Main(props){
+    const dispatch=useDispatch();
+    const historyViet=useSelector(state=>state.history.textViet);
+    const historyHue=useSelector(state=>state.history.textHue);
+    const isLoad=useSelector(state=>state.history.isLoad);
     const [textHue,updateTextHue]=useState('');
     const [textTiengViet,updateTextTiengViet]=useState('');
-    const [isMobile, setIsMobile] = useState(false)
-    //const [listData,updateListData]=useState('');
+    const [isMobile, setIsMobile] = useState(false);
     const onHandleChange=(e)=>{
         const value=e.target.value;
         updateTextHue(value);
     }
     const configData=(response)=>{
         let data=response;
-        
         data=data.replace(/_/g,' ');
         data=data.replace(/ \?/g,'?');
         data=data.replace(/ \./g,'.');
@@ -22,7 +28,6 @@ function Main(props){
         data=data.replace(/ ,/g,',');
         return data
     }
-    
  
     //choose the screen size 
     const handleResize = () => {
@@ -33,30 +38,41 @@ function Main(props){
     }
     }
     // create an event listener
+
     useEffect(() => {
-    window.addEventListener("resize", handleResize)
+    window.addEventListener("resize", handleResize);
+   
     })
+    useEffect(() => {
+        if (isLoad==true){
+            updateTextHue(historyHue.join('\n'));
+            updateTextTiengViet(historyViet.join('\n'));
+            dispatch(loadHistory(false))
+        }
+        },[isLoad])
     async function FetchOneSentence(sentence){
         const response=await axios.post(`http://localhost:8000/translate`,{ TranslateSentence:sentence })
-       
         return response.data
     }
     async function FetchData(textHueArray){
-        let data=''
+        let data=[]
         for (let i = 0; i < textHueArray.length; i++){
             let sentence_i=(await FetchOneSentence(textHueArray[i]));
-
-            data=data + configData(sentence_i) +'\n';
+            console.log(sentence_i)
+            console.log(textHueArray[i])
+            data.push(configData(sentence_i));
         }
-        updateTextTiengViet(data)
-      
+        updateTextTiengViet(data.join('\n'))
+        dispatch(addHueHistory(textHueArray.join('\n')))
+        dispatch(addVietHistory(data.join('\n')))
         
     }
     const onHandleSubmit=(e)=>{
         e.preventDefault();
         let textHueArray=[...textHue.split('\n')];
         FetchData(textHueArray);
-        
+       
+       
     }
     const getFontSize = (textLength) => {
         let fontSize=0;
@@ -88,7 +104,7 @@ function Main(props){
 
     boxes.forEach(box => {
         box.style.fontSize = getFontSize(textHue.length);
-        box.style.minHeight=getMinHeight(textHue.length);
+        box.style.minHeight= getMinHeight(textHue.length);
       })
     return (
         <div className='main '>
@@ -100,7 +116,7 @@ function Main(props){
                     <form>
                         <div className="form-group">
                         
-                            <textarea className="form-control size-24px"  placeholder="Nhập câu cần dịch" onChange={onHandleChange}></textarea>
+                            <textarea className="form-control size-24px"  placeholder="Nhập câu cần dịch" value={textHue} onChange={onHandleChange}></textarea>
                         </div> 
                         <div >
                             <i className="bi bi-mic size-20px"></i>

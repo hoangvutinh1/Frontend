@@ -1,7 +1,13 @@
 import React from "react";
 import './Toolbar.css';
+
+import { useDispatch } from "react-redux";
+import { loadHistory } from "../../actions/history";
 function Toolbar(props){
-    
+    const dispatch=useDispatch()
+    const onHandleClick=(e)=>{
+        dispatch(loadHistory(true))
+    }
     return (
         <div className='toolbar '>
             <div className="row">
@@ -10,16 +16,13 @@ function Toolbar(props){
                     <div className="row">
                         <div className="col">
 
-                            <i className="bi bi-clock-history icon" ></i>
-                            <div><label>Lịch sử</label></div>
+                            <i className="bi bi-clock-history icon" onClick={onHandleClick}></i>
+                            <div><label className="size-18px">Lịch sử</label></div>
                         </div>
-                        <div  className="col">
-                            <i className="bi bi-star icon" ></i>
-                            <div><label>Đã lưu</label></div>
-                        </div>
+                    
                         <div  className="col">
                             <i className="bi bi-question-circle icon" ></i>
-                            <div><label>Liên hệ</label></div>
+                            <div><label className="size-18px">Liên hệ</label></div>
                         </div>
                     </div>
                 </div>
