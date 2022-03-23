@@ -82,6 +82,8 @@ function Main(props) {
     const audio = new Audio(response.data.async);
 
     audio.play();
+
+    audio.remove();
   };
 
   const onHandleSubmit = e => {
@@ -121,12 +123,12 @@ function Main(props) {
     box.style.minHeight = getMinHeight(textHue.length);
   });
   return (
-    <div className="main ">
+    <div className="main" style={{ width: "100%" }}>
       <div className="row">
         <div className="col-sm-12 col-md-6 col-lg-6 col-xl-6">
           <label>Phương ngữ Huế</label>
 
-          <form>
+          <form style={{ width: "100%" }}>
             <div className="form-group">
               <textarea
                 className="form-control size-24px"
@@ -151,17 +153,21 @@ function Main(props) {
           <label>Tiếng Việt phổ thông</label>
           <form>
             <div className="form-group">
-              <textarea
-                className="background-white form-control"
-                id="exampleInputEmail1"
-                value={textTiengViet}
-                readOnly="readonly"
-              />
+              {textTiengViet !== "" ? (
+                <textarea
+                  className="background-white form-control"
+                  id="exampleInputEmail1"
+                  value={textTiengViet}
+                  readOnly="readonly"
+                />
+              ) : (
+                ""
+              )}
+              <i
+                className="bi bi-mic size-20px"
+                onClick={() => convertTextToSpeech(textTiengViet)}
+              ></i>
             </div>
-            <i
-              className="bi bi-mic size-20px"
-              onClick={() => convertTextToSpeech(textTiengViet)}
-            ></i>
           </form>
         </div>
       </div>
