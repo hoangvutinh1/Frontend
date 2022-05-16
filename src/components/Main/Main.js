@@ -7,6 +7,7 @@ import { loadHistory } from "../../actions/history";
 import { useDispatch } from "react-redux";
 import { addVietHistory, addHueHistory } from "../../actions/history";
 import { useSelector } from "react-redux";
+import useRecorder from "../../hook/useRecorder";
 
 function Main(props) {
   const dispatch = useDispatch();
@@ -16,6 +17,8 @@ function Main(props) {
   const [textHue, updateTextHue] = useState("");
   const [textTiengViet, updateTextTiengViet] = useState("");
   const [isMobile, setIsMobile] = useState(false);
+
+  let [audioURL, isRecording, startRecording, stopRecording] = useRecorder();
 
   const onHandleChange = e => {
     const value = e.target.value;
@@ -51,12 +54,14 @@ function Main(props) {
       dispatch(loadHistory(false));
     }
   }, [isLoad]);
+
   async function FetchOneSentence(sentence) {
     const response = await axios.post(`http://localhost:8000/translate`, {
       TranslateSentence: sentence,
     });
     return response.data;
   }
+
   async function FetchData(textHueArray) {
     let data = [];
     for (let i = 0; i < textHueArray.length; i++) {
@@ -93,6 +98,7 @@ function Main(props) {
     let textHueArray = [...textHue.split("\n")];
     FetchData(textHueArray);
   };
+
   const getFontSize = textLength => {
     let fontSize = 0;
     if (isMobile === false) {
@@ -140,7 +146,17 @@ function Main(props) {
               ></textarea>
             </div>
             <div>
-              <i class="bi bi-mic" style={{ fontSize: "30px" }}></i>
+              {/* <i class="bi bi-mic" style={{ fontSize: "30px" }}></i> */}
+              <audio src={audioURL} controls />
+
+              <button onClick={startRecording} disabled={isRecording}>
+                start recording
+              </button>
+
+              <button onClick={stopRecording} disabled={!isRecording}>
+                stop recording
+              </button>
+
               <i className="margin-right size-20px">
                 <i>{textHue.length}/5000</i>
                 <i className="bi bi-pencil-square"></i>
