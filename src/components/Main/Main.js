@@ -7,6 +7,7 @@ import { loadHistory } from "../../actions/history";
 import { useDispatch } from "react-redux";
 import { addVietHistory, addHueHistory } from "../../actions/history";
 import { useSelector } from "react-redux";
+
 function Main(props) {
   const dispatch = useDispatch();
   const historyViet = useSelector(state => state.history.textViet);
@@ -15,6 +16,7 @@ function Main(props) {
   const [textHue, updateTextHue] = useState("");
   const [textTiengViet, updateTextTiengViet] = useState("");
   const [isMobile, setIsMobile] = useState(false);
+
   const onHandleChange = e => {
     const value = e.target.value;
     updateTextHue(value);
@@ -138,7 +140,7 @@ function Main(props) {
               ></textarea>
             </div>
             <div>
-              <i className="bi bi-mic size-20px"></i>
+              <i class="bi bi-mic" style={{ fontSize: "30px" }}></i>
               <i className="margin-right size-20px">
                 <i>{textHue.length}/5000</i>
                 <i className="bi bi-pencil-square"></i>
@@ -164,8 +166,9 @@ function Main(props) {
                 ""
               )}
               <i
-                className="bi bi-mic size-20px"
+                className="bi bi-speaker"
                 onClick={() => convertTextToSpeech(textTiengViet)}
+                style={{ fontSize: "30px" }}
               ></i>
             </div>
           </form>
